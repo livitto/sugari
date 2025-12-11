@@ -1,17 +1,21 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
+import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Suspense } from "react"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import { ThemeProvider } from "@/components/theme-provider"
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: "Sugari - Easy Diabetes Tracking",
   description: "Track your glucose levels easily with AI-powered photo analysis",
-  generator: "v0.app",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -25,6 +29,7 @@ export const metadata: Metadata = {
     icon: "/sugari-icon.png",
     apple: "/sugari-icon.png",
   },
+    generator: 'v0.app'
 }
 
 export const viewport: Viewport = {
@@ -42,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider defaultTheme="light" storageKey="sugari-theme">
           <Suspense fallback={<div>Loading...</div>}>
             {children}
